@@ -1,1 +1,13 @@
-<p>sites works!</p>
+<h1>Sites</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Site Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let site of sites">
+      <td>{{ site }}</td>
+    </tr>
+  </tbody>
+</table>
