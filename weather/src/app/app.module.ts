@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RoutesComponent } from './routes/routes.component';
 import { RouterModule } from '@angular/router';
 import { SitesComponent } from './sites/sites.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SitesComponent } from './sites/sites.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: RoutesComponent },
       { path: 'sites', component: SitesComponent },

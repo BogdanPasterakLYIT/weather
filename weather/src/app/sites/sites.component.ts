@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SitesService } from '../services/sites.service';
+import { Site } from '../models/site';
 
 @Component({
   selector: 'sites',
@@ -7,9 +8,12 @@ import { SitesService } from '../services/sites.service';
   styleUrls: ['./sites.component.css'],
 })
 export class SitesComponent {
-  sites: string[];
+  sites: Site[] = [];
 
   constructor(service: SitesService) {
-    this.sites = service.getSites();
+    service.getSites().subscribe((obj) => {
+      // console.log(obj);
+      this.sites = obj as Site[];
+    });
   }
 }
