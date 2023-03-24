@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
   res.send("api weather2023 db work");
 });
 
+// data from sites order by
 app.get("/sites", (req, res) => {
   const objectPar = req.body;
 
@@ -31,10 +32,29 @@ app.get("/sites", (req, res) => {
   });
 });
 
+// data from weatherdata (4 columns) where day
 app.get("/today/:day", (req, res) => {
   const day = req.params.day;
 
-  const sqlQuery = `SELECT site_name, air_temperature, road_surface_temperature, wind_speed FROM weatherdata WHERE datenow LIKE '${day}%'`;
+  const sqlQuery =
+    `SELECT site_name, air_temperature, road_surface_temperature, wind_speed` +
+    ` FROM weatherdata WHERE datenow LIKE '${day}%'`;
+
+  db.query(sqlQuery, (err, rows) => {
+    if (err) res.send(err);
+    else res.send(rows);
+  });
+});
+
+// data from weatherdata (9 columns) where site order by
+app.get("/sitedata/:site", (req, res) => {
+  const site = req.params.site;
+
+  const sqlQuery =
+    `SELECT datenow, timenow, site_name, air_temperature, precipitation_type, ` +
+    `wind_speed, road_surface_temperature, wind_direction_bearing, weather_description ` +
+    `FROM weatherdata WHERE site_name = '${site}' ` +
+    `ORDER BY datenow, timenow`;
   // console.log(sqlQuery);
 
   db.query(sqlQuery, (err, rows) => {
@@ -43,6 +63,8 @@ app.get("/today/:day", (req, res) => {
   });
   // res.send("OK");
 });
+
+// stare
 
 app.post("/api/deleteRes", (req, res) => {
   const id = req.body.id_reservation;
@@ -107,6 +129,8 @@ app.delete("/api/receptionist/:id", (req, res) => {
 
   // res.send(req.params.id);
 });
+
+// listen
 
 app.listen(3000, () => {
   console.log("Port 3000");
