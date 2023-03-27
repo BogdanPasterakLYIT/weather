@@ -7,6 +7,7 @@ import { RoutesComponent } from './routes/routes.component';
 import { RouterModule } from '@angular/router';
 import { SitesComponent } from './sites/sites.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SitesMapComponent } from './sites-map/sites-map.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     RoutesComponent,
     SitesComponent,
+    SitesMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: '', component: RoutesComponent },
       { path: 'sites', component: SitesComponent },
+      { path: 'sites-map', component: SitesMapComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],

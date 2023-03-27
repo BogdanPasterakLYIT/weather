@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Site } from '../models/site';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,6 @@ export class SitesService {
   constructor(private httpClient: HttpClient) {}
 
   getSites() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get<Site[]>(this.url);
   }
 }

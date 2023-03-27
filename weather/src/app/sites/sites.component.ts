@@ -13,7 +13,7 @@ export class SitesComponent {
   constructor(service: SitesService) {
     service.getSites().subscribe((obj) => {
       // console.log(obj);
-      this.sites = obj as Site[];
+      this.sites = obj;
     });
   }
 }
