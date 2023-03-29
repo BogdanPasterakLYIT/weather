@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { SitesComponent } from './sites/sites.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SitesMapComponent } from './sites-map/sites-map.component';
+import { TodayComponent } from './today/today.component';
+import { TodaySiteComponent } from './today-site/today-site.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { SitesMapComponent } from './sites-map/sites-map.component';
     RoutesComponent,
     SitesComponent,
     SitesMapComponent,
+    TodayComponent,
+    TodaySiteComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,8 @@ import { SitesMapComponent } from './sites-map/sites-map.component';
       { path: '', component: RoutesComponent },
       { path: 'sites', component: SitesComponent },
       { path: 'sites-map', component: SitesMapComponent },
+      { path: 'today', component: TodayComponent },
+      { path: 'today/:site', component: TodaySiteComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],

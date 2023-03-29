@@ -1,0 +1,55 @@
+<h1>{{ day | date : "MMMM d, y" }}</h1>
+<button class="btn btn-primary" (click)="next(-1)">&lt;&lt;</button>
+&nbsp;
+<button class="btn btn-primary" (click)="next(1)">&gt;&gt;</button>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Site Name</th>
+      <th scope="col">
+        <span
+          class="glyphicon glyphicon-arrow-up"
+          (click)="sort('A', 'up')"
+        ></span>
+        &nbsp;Air Temperature &#8451;&nbsp;
+        <span
+          class="glyphicon glyphicon-arrow-down"
+          (click)="sort('A', 'down')"
+        ></span>
+      </th>
+      <th scope="col">
+        <span
+          class="glyphicon glyphicon-arrow-up"
+          (click)="sort('R', 'up')"
+        ></span>
+        &nbsp;Road Temperature &#8451;&nbsp;
+        <span
+          class="glyphicon glyphicon-arrow-down"
+          (click)="sort('R', 'down')"
+        ></span>
+      </th>
+      <th scope="col">
+        <span
+          class="glyphicon glyphicon-arrow-up"
+          (click)="sort('W', 'up')"
+        ></span>
+        &nbsp;Wind Speed km/h&nbsp;
+        <span
+          class="glyphicon glyphicon-arrow-down"
+          (click)="sort('W', 'down')"
+        ></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let site of sites">
+      <td>
+        <a [routerLink]="site.site_name">{{ site.site_name }}</a>
+      </td>
+      <td>{{ site.air_temperature }}</td>
+      <td>{{ site.road_surface_temperature }}</td>
+      <td>{{ site.wind_speed }}</td>
+    </tr>
+  </tbody>
+</table>
