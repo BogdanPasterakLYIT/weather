@@ -13,4 +13,14 @@ export class TodayService {
     let dateString = day.toJSON().substring(0, 10);
     return this.httpClient.get<Today[]>(`${this.url}/${dateString}`);
   }
+
+  getTodaySort(day: Date, what: number, where: string) {
+    const col = ['air_temperature', 'road_surface_temperature', 'wind_speed'];
+    let dateString = day.toJSON().substring(0, 10);
+    let column = col[what];
+
+    return this.httpClient.get<Today[]>(
+      `${this.url}/${dateString}/${column}/${where}`
+    );
+  }
 }
