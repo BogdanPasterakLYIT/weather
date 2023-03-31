@@ -1,5 +1,5 @@
 <h1>@{{ site }} {{ day | date : "MMMM d, yyyy" }}</h1>
-
+<hr />
 <table class="table table-striped">
   <thead>
     <tr>
@@ -18,15 +18,16 @@
     </tr>
   </thead>
   <tbody>
-    <!-- <tr *ngFor="let site of sites">
-      <td>
-        <a [routerLink]="[site.site_name, day | date : 'MM-dd-yyyy']">
-          {{ site.site_name }}
-        </a>
-      </td>
-      <td>{{ site.air_temperature }}</td>
-      <td>{{ site.road_surface_temperature }}</td>
-      <td>{{ site.wind_speed }}</td>
-    </tr> -->
+    <tr *ngFor="let data of siteData">
+      <td>{{ data.timenow }}</td>
+      <td>{{ data.air_temperature }}</td>
+      <td>{{ data.road_surface_temperature }}</td>
+      <td>{{ data.wind_speed }}</td>
+    </tr>
   </tbody>
 </table>
+<hr />
+<h2>Air Temperature by the Hour</h2>
+<div class="container">
+  <figure id="bar"></figure>
+</div>
