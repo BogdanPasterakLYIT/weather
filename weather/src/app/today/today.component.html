@@ -45,7 +45,9 @@
   <tbody>
     <tr *ngFor="let site of sites">
       <td>
-        <a [routerLink]="site.site_name">{{ site.site_name }}</a>
+        <a [routerLink]="[site.site_name, day | date : 'MM-dd-yyyy']">
+          {{ site.site_name }}
+        </a>
       </td>
       <td>{{ site.air_temperature }}</td>
       <td>{{ site.road_surface_temperature }}</td>

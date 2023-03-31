@@ -30,7 +30,7 @@ import { TodaySiteComponent } from './today-site/today-site.component';
       { path: 'sites', component: SitesComponent },
       { path: 'sites-map', component: SitesMapComponent },
       { path: 'today', component: TodayComponent },
-      { path: 'today/:site', component: TodaySiteComponent },
+      { path: 'today/:site/:day', component: TodaySiteComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],

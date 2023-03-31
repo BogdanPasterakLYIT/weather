@@ -1,1 +1,32 @@
-<p>today-site works! {{ site }}</p>
+<h1>@{{ site }} {{ day | date : "MMMM d, yyyy" }}</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Site Name</th>
+      <th scope="col">
+        Time ({{ avrage.air_temperature | number : "1.1-1" }})
+      </th>
+      <th scope="col">
+        Road Temperature ({{
+          avrage.road_surface_temperature | number : "1.1-1"
+        }})
+      </th>
+      <th scope="col">
+        Wind Speed km/h ({{ avrage.wind_speed | number : "1.1-1" }})
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- <tr *ngFor="let site of sites">
+      <td>
+        <a [routerLink]="[site.site_name, day | date : 'MM-dd-yyyy']">
+          {{ site.site_name }}
+        </a>
+      </td>
+      <td>{{ site.air_temperature }}</td>
+      <td>{{ site.road_surface_temperature }}</td>
+      <td>{{ site.wind_speed }}</td>
+    </tr> -->
+  </tbody>
+</table>

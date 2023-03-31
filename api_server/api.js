@@ -32,7 +32,7 @@ app.get("/sites", (req, res) => {
   });
 });
 
-// data from weatherdata (4 columns) where day
+// data from weatherdata (4 columns) where day (avrage)
 app.get("/today/:day", (req, res) => {
   const day = req.params.day;
 
@@ -50,7 +50,7 @@ app.get("/today/:day", (req, res) => {
   });
 });
 
-// data from weatherdata (4 columns) where day order
+// data from weatherdata (4 columns) where day order (avrage)
 app.get("/today/:day/:column/:where", (req, res) => {
   const day = req.params.day;
   const column = req.params.column;
@@ -71,23 +71,44 @@ app.get("/today/:day/:column/:where", (req, res) => {
   });
 });
 
-// data from weatherdata (4 columns) where day
+// data from weatherdata (4 columns) where day and site
 app.get("/today/:site/:day", (req, res) => {
   const day = req.params.day;
   const site = req.params.site;
-  console.log("param", day, site);
 
   const sqlQuery =
-    `SELECT site_name,` +
-    ` ROUND(AVG(air_temperature),1) AS air_temperature,` +
-    ` ROUND(AVG(road_surface_temperature),1) AS road_surface_temperature,` +
-    ` ROUND(AVG(wind_speed),1) AS wind_speed` +
+    `SELECT timenow,` +
+    ` air_temperature,` +
+    ` road_surface_temperature,` +
+    ` wind_speed` +
     ` FROM weatherdata WHERE datenow LIKE '${day}%'` +
-    ` GROUP BY site_name`;
+    ` AND site_name LIKE '${site}'`;
 
   db.query(sqlQuery, (err, rows) => {
     if (err) res.send(err);
     else res.send(rows);
+  });
+});
+
+// data from weatherdata (3 avrage) where day and site
+app.get("/avrage/:site/:day", (req, res) => {
+  const day = req.params.day;
+  const site = req.params.site;
+  // console.log("param", day, site);
+
+  const sqlQuery =
+    `SELECT` +
+    ` ROUND(AVG(air_temperature),1) AS air_temperature,` +
+    ` ROUND(AVG(road_surface_temperature),1) AS road_surface_temperature,` +
+    ` ROUND(AVG(wind_speed),1) AS wind_speed` +
+    ` FROM weatherdata WHERE datenow LIKE '${day}%'` +
+    ` AND site_name LIKE '${site}'` +
+    ` GROUP BY site_name`;
+
+  // console.log(sqlQuery);
+  db.query(sqlQuery, (err, rows) => {
+    if (err) res.send(err);
+    else res.send(rows[0]);
   });
 });
 
@@ -106,8 +127,10 @@ app.get("/sitedata/:site", (req, res) => {
     if (err) res.send(err);
     else res.send(rows);
   });
-  // res.send("OK");
 });
+
+//
+//
 
 // stare
 
