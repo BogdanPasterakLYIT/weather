@@ -27,9 +27,6 @@ export class TodaySiteComponent implements AfterViewInit {
   ];
   private sizes = { w: 0, h: 0 };
   private svg: any;
-  private margin = 50;
-  // private width = 850 - this.margin * 2;
-  private height = 500 - this.margin * 2;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +56,7 @@ export class TodaySiteComponent implements AfterViewInit {
   ngOnInit(): void {}
 
   private createSvg(): void {
+    // Sizes depend off windows size
     this.svg = d3
       .select('div#bar')
       .append('svg')
@@ -69,7 +67,7 @@ export class TodaySiteComponent implements AfterViewInit {
   }
 
   private drawBars(data: any[]): void {
-    // Create the X-axis band scale
+    //min and max y
     const yMin = Math.floor(
       this.siteData.reduce((prev, curr) =>
         prev.air_temperature > curr.air_temperature ? curr : prev
@@ -80,18 +78,12 @@ export class TodaySiteComponent implements AfterViewInit {
         prev.air_temperature < curr.air_temperature ? curr : prev
       ).air_temperature + 0.2
     );
-    // console.log(yMin, yMax);
 
+    // Create the X-axis band scale
     const x = d3
       .scaleLinear()
-      .domain([0, this.siteData.length])
-      // .tickFormat(d3.format('.2f'))
+      .domain([-0.5, this.siteData.length - 0.5])
       .range([0, this.sizes.w]);
-    // const x = d3
-    //   .scaleBand()
-    //   .range([0, this.width])
-    //   .domain(data.map((d) => d.Framework))
-    //   .padding(0.2);
 
     // Create the Y-axis band scale
     const y = d3
@@ -116,15 +108,30 @@ export class TodaySiteComponent implements AfterViewInit {
       .attr('transform', 'translate(' + this.sizes.w + ',0)');
 
     // Create and fill the bars
-    // this.svg
-    //   .selectAll('bars')
-    //   .data(data)
-    //   .enter()
-    //   .append('rect')
-    //   .attr('x', (d: any) => x(d.Framework))
-    //   .attr('y', (d: any) => y(d.Stars))
-    //   // .attr('width', x.bandwidth())
-    //   .attr('height', (d: any) => this.height - y(d.Stars))
-    //   .attr('fill', '#d04a35');
+    this.svg
+      .append('g')
+      .selectAll('dot')
+      .data(this.siteData)
+      .enter()
+      .append('circle')
+      .attr('r', 6)
+      .attr('cx', (d: TodaySite) => x(this.siteData.indexOf(d)))
+      .attr('cy', (d: TodaySite) => y(d.air_temperature))
+      .style('fill', (d: TodaySite) =>
+        d.air_temperature < 0 ? 'Red' : 'Blue'
+      );
+
+    // Add labels to points
+    this.svg
+      .append('g')
+      .selectAll('text')
+      .data(this.siteData)
+      .enter()
+      .append('text')
+      .attr('x', (d: TodaySite) => x(this.siteData.indexOf(d)) + 10)
+      .attr('y', (d: TodaySite) => y(d.air_temperature) + 5)
+      .text((d: TodaySite) => {
+        return `${d.air_temperature}`;
+      });
   }
 }
