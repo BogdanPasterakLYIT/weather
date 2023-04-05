@@ -11,6 +11,7 @@ import { SitesMapComponent } from './sites-map/sites-map.component';
 import { TodayComponent } from './today/today.component';
 import { TodaySiteComponent } from './today-site/today-site.component';
 import { LiveComponent } from './live/live.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LiveComponent } from './live/live.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: RoutesComponent },
       { path: 'sites', component: SitesComponent },

@@ -2,10 +2,6 @@ import { Component } from '@angular/core';
 import { Properties } from '../models/live';
 import { LiveService } from '../services/live.service';
 
-interface liveData {
-  features: {};
-}
-
 @Component({
   selector: 'app-live',
   templateUrl: './live.component.html',
@@ -13,8 +9,9 @@ interface liveData {
 })
 export class LiveComponent {
   properties: Properties[] = [];
+  name: string = '';
 
-  constructor(service: LiveService) {
+  constructor(private service: LiveService) {
     service.getSites().subscribe((obj) => {
       // array of properties from features
       this.properties = obj.features.map((f) => f.properties);
@@ -32,5 +29,14 @@ export class LiveComponent {
     if (dir < 293) return 'bi bi-arrow-left';
     if (dir < 338) return 'bi bi-arrow-up-left';
     return 'bi bi-bug';
+  }
+
+  onChange() {
+    this.service.getSites().subscribe((obj) => {
+      // filter by name
+      this.properties = obj.features
+        .map((f) => f.properties)
+        .filter((f) => f.site_name.includes(this.name));
+    });
   }
 }

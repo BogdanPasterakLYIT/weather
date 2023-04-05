@@ -8,7 +8,12 @@
         <div class="input-group-btn">
           <span type="submit" class="btn">Site: </span>
         </div>
-        <input type="text" class="form-control" />
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="name"
+          (keyup)="onChange()"
+        />
       </div>
     </div>
   </div>
@@ -33,7 +38,16 @@
         <td>{{ site.wind_speed | number : "0.1-1" }}</td>
         <td><i [class]="getArrow(site.wind_direction_bearing)"></i></td>
         <td>{{ site.weather_definition }}</td>
-        <td>{{ site.weather_definition }}</td>
+        <td>
+          <a
+            *ngIf="site.camera_image"
+            [href]="site.camera_image"
+            target="_blank"
+          >
+            <i class="bi bi-image"></i>
+          </a>
+          <span *ngIf="!site.camera_image">no image</span>
+        </td>
       </tr>
     </tbody>
   </table>
