@@ -16,6 +16,8 @@ export interface Properties {
   weather_description: string;
   weather_definition: string;
   order: number;
+  lat?: number;
+  lng?: number;
 }
 
 export interface Features {

@@ -12,6 +12,7 @@ import { TodayComponent } from './today/today.component';
 import { TodaySiteComponent } from './today-site/today-site.component';
 import { LiveComponent } from './live/live.component';
 import { FormsModule } from '@angular/forms';
+import { LiveMapComponent } from './live-map/live-map.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     TodayComponent,
     TodaySiteComponent,
     LiveComponent,
+    LiveMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { FormsModule } from '@angular/forms';
       { path: 'today', component: TodayComponent },
       { path: 'today/:site/:day', component: TodaySiteComponent },
       { path: 'live', component: LiveComponent },
+      { path: 'live-map', component: LiveMapComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],
