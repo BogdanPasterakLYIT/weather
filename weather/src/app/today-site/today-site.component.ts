@@ -118,7 +118,7 @@ export class TodaySiteComponent implements AfterViewInit {
       .attr('cx', (d: TodaySite) => x(this.siteData.indexOf(d)))
       .attr('cy', (d: TodaySite) => y(d.air_temperature))
       .style('fill', (d: TodaySite) =>
-        d.air_temperature < 0 ? 'Red' : 'Blue'
+        d.air_temperature < 0 ? 'Blue' : 'Red'
       );
 
     // Add labels to points

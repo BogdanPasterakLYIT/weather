@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SitesMapComponent } from './sites-map/sites-map.component';
 import { TodayComponent } from './today/today.component';
 import { TodaySiteComponent } from './today-site/today-site.component';
+import { LiveComponent } from './live/live.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TodaySiteComponent } from './today-site/today-site.component';
     SitesMapComponent,
     TodayComponent,
     TodaySiteComponent,
+    LiveComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { TodaySiteComponent } from './today-site/today-site.component';
       { path: 'sites-map', component: SitesMapComponent },
       { path: 'today', component: TodayComponent },
       { path: 'today/:site/:day', component: TodaySiteComponent },
+      { path: 'live', component: LiveComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],

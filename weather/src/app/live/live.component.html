@@ -1,0 +1,40 @@
+<div class="container">
+  <h1>Live</h1>
+  <a href="https://tiitrafficdata.azurewebsites.net/api/Weather">*</a>
+  <hr />
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group input-group-lg">
+        <div class="input-group-btn">
+          <span type="submit" class="btn">Site: </span>
+        </div>
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+  </div>
+  <hr />
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Site</th>
+        <th scope="col">Air Temperature</th>
+        <th scope="col">Road Temperature</th>
+        <th scope="col">Wind Speed km/h</th>
+        <th scope="col">Wind Direction</th>
+        <th scope="col">Description</th>
+        <th scope="col">Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let site of properties">
+        <td>{{ site.site_name }}</td>
+        <td>{{ site.air_temperature | number : "0.1-1" }}</td>
+        <td>{{ site.road_surface_temperature | number : "0.1-1" }}</td>
+        <td>{{ site.wind_speed | number : "0.1-1" }}</td>
+        <td><i [class]="getArrow(site.wind_direction_bearing)"></i></td>
+        <td>{{ site.weather_definition }}</td>
+        <td>{{ site.weather_definition }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
