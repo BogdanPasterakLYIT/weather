@@ -129,6 +129,23 @@ app.get("/sitedata/:site", (req, res) => {
   });
 });
 
+// data from weatherdata (4 columns) where day (avrage)
+app.get("/site-data/:site", (req, res) => {
+  const site = req.params.site;
+
+  const sqlQuery =
+    `SELECT datenow, timenow, ` +
+    ` ROUND(air_temperature,1) AS air_temperature,` +
+    ` ROUND(road_surface_temperature,1) AS road_surface_temperature,` +
+    ` ROUND(wind_speed,1) AS wind_speed` +
+    ` FROM weatherdata WHERE site_name LIKE '${site}%'`;
+
+  db.query(sqlQuery, (err, rows) => {
+    if (err) res.send(err);
+    else res.send(rows);
+  });
+});
+
 //
 //
 

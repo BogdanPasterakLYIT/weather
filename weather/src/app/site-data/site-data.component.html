@@ -1,1 +1,100 @@
-<p>site-data works!</p>
+<div class="container">
+  <h1>Site Data</h1>
+  <hr />
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group input-group-lg">
+        <div class="input-group-btn">
+          <span type="submit" class="btn">Site: </span>
+        </div>
+        <select
+          type="text"
+          class="form-control"
+          [(ngModel)]="name"
+          (change)="onChange()"
+        >
+          <option value="" disabled="true">Choose a site</option>
+          <option *ngFor="let o of options" [value]="o">{{ o }}</option>
+        </select>
+      </div>
+    </div>
+    <br />
+    <input
+      type="radio"
+      name="radio"
+      value="air_temperature"
+      [(ngModel)]="radio"
+      (change)="radioChange()"
+    />
+    <label>Air Temperature</label>
+    <input
+      type="radio"
+      name="radio"
+      value="wind_speed"
+      [(ngModel)]="radio"
+      (change)="radioChange()"
+    />
+    <label>Wind Speed</label><br />
+    <span
+      >{{ radio.replace("_", " ") | titlecase }} &lt;= {{ range
+      }}{{ radio === "wind_speed" ? " km/h" : "&#8451;" }}</span
+    >
+  </div>
+  <input
+    type="range"
+    [(ngModel)]="range"
+    [min]="min"
+    [max]="max"
+    step=".1"
+    (change)="rangeChange()"
+  />
+  <br />
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Date & Time</th>
+        <th scope="col">
+          <span
+            class="glyphicon glyphicon-arrow-up"
+            (click)="sort(0, 'DESC')"
+          ></span>
+          &nbsp;Air Temperature &#8451;&nbsp;
+          <span
+            class="glyphicon glyphicon-arrow-down"
+            (click)="sort(0, 'ASC')"
+          ></span>
+        </th>
+        <th scope="col">
+          <span
+            class="glyphicon glyphicon-arrow-up"
+            (click)="sort(1, 'DESC')"
+          ></span>
+          &nbsp;Road Temperature &#8451;&nbsp;
+          <span
+            class="glyphicon glyphicon-arrow-down"
+            (click)="sort(1, 'ASC')"
+          ></span>
+        </th>
+        <th scope="col">
+          <span
+            class="glyphicon glyphicon-arrow-up"
+            (click)="sort(2, 'DESC')"
+          ></span>
+          &nbsp;Wind Speed km/h&nbsp;
+          <span
+            class="glyphicon glyphicon-arrow-down"
+            (click)="sort(2, 'ASC')"
+          ></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let site of sites">
+        <td>{{ site.datenow | date }} {{ site.timenow }}</td>
+        <td>{{ site.air_temperature }}</td>
+        <td>{{ site.road_surface_temperature }}</td>
+        <td>{{ site.wind_speed }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

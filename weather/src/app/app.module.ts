@@ -14,6 +14,7 @@ import { LiveComponent } from './live/live.component';
 import { FormsModule } from '@angular/forms';
 import { LiveMapComponent } from './live-map/live-map.component';
 import { SiteDataComponent } from './site-data/site-data.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SiteDataComponent } from './site-data/site-data.component';
     LiveComponent,
     LiveMapComponent,
     SiteDataComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,8 @@ import { SiteDataComponent } from './site-data/site-data.component';
       { path: 'today/:site/:day', component: TodaySiteComponent },
       { path: 'live', component: LiveComponent },
       { path: 'live-map', component: LiveMapComponent },
+      { path: 'site-data', component: SiteDataComponent },
+      { path: 'stats', component: StatsComponent },
       { path: '**', component: RoutesComponent },
     ]),
   ],
