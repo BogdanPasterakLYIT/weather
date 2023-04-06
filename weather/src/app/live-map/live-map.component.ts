@@ -17,11 +17,18 @@ export class LiveMapComponent implements OnInit {
     service.getSites().subscribe((obj) => {
       let sites = obj.features.map((f) => f.properties);
       siteService.getSites().subscribe((res) => {
-        // add lat lng to sites
+        // add lat lng to sites and format number
         sites.map((s) => {
           let r = res.find((e) => e.site_name === s.site_name);
           s.lat = r?.lat;
           s.lng = r?.lng;
+          if (s.air_temperature)
+            s.air_temperature = Number(s.air_temperature.toFixed(1));
+          if (s.road_surface_temperature)
+            s.road_surface_temperature = Number(
+              s.road_surface_temperature.toFixed(1)
+            );
+          if (s.wind_speed) s.wind_speed = Number(s.wind_speed.toFixed(1));
           return s;
         });
         // add markers
@@ -38,13 +45,17 @@ export class LiveMapComponent implements OnInit {
           let popop =
             `<b>${site.site_name}</b><br/>` +
             `<span>${site.weather_definition}</span><br/>` +
-            `<span>${site.air_temperature.toFixed(1)}&#8451;</span><br/>` +
-            `<span>${site.wind_speed.toFixed(1)} km/h</span><br/>`;
-          if (site.camera_image) popop += `<i class="bi bi-image"></i>`;
+            `<span>${site.air_temperature || '-'}&#8451;</span><br/>` +
+            `<span>${site.wind_speed || '-'} km/h</span><br/>`;
+          if (site.camera_image)
+            popop +=
+              `<a target='_blank' href='${site.camera_image}'>` +
+              `<i class="bi bi-image"></i></a>`;
+          else popop += `<span>No image</span>`;
           marker.bindPopup(popop);
           this.markers.push(marker);
         });
-        console.log(new Set(sites.map((s) => s.weather_description)));
+        // console.log(new Set(sites.map((s) => s.weather_description)));
       });
     });
   }

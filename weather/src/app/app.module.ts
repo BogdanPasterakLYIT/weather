@@ -13,6 +13,7 @@ import { TodaySiteComponent } from './today-site/today-site.component';
 import { LiveComponent } from './live/live.component';
 import { FormsModule } from '@angular/forms';
 import { LiveMapComponent } from './live-map/live-map.component';
+import { SiteDataComponent } from './site-data/site-data.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LiveMapComponent } from './live-map/live-map.component';
     TodaySiteComponent,
     LiveComponent,
     LiveMapComponent,
+    SiteDataComponent,
   ],
   imports: [
     BrowserModule,

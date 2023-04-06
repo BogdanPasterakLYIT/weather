@@ -20,6 +20,8 @@ export interface Properties {
   lng?: number;
 }
 
+export interface PropLL extends Properties {}
+
 export interface Features {
   type: string;
   id: string;
