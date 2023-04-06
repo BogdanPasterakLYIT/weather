@@ -146,6 +146,43 @@ app.get("/site-data/:site", (req, res) => {
   });
 });
 
+// data for stats
+app.get("/stats/:col", (req, res) => {
+  const col = req.params.col;
+
+  const sqlQuery =
+    `SELECT '${col}' AS name,` +
+    ` ROUND(MIN(${col}),1) AS min,` +
+    ` ROUND(MAX(${col}),1) AS max,` +
+    ` ROUND(AVG(${col}),1) AS avg` +
+    ` FROM weatherdata`;
+
+  db.query(sqlQuery, (err, rows) => {
+    if (err) res.send(err);
+    else res.send(rows);
+  });
+});
+
+// data for stats
+app.get("/stats/:col/:name", (req, res) => {
+  const col = req.params.col;
+  const name = req.params.name;
+
+  let sqlQuery =
+    `SELECT '${name}' AS name, site_name,` +
+    ` ROUND(${col},1) AS value FROM weatherdata` +
+    ` WHERE ${col} = ( SELECT`;
+  if (name === "Coldest") sqlQuery += ` MIN(${col})`;
+  else if (name === "Warmest") sqlQuery += ` MAX(${col})`;
+  else sqlQuery += ` MAX(${col})`;
+  sqlQuery += ` FROM weatherdata);`;
+
+  db.query(sqlQuery, (err, rows) => {
+    if (err) res.send(err);
+    else res.send(rows);
+  });
+});
+
 //
 //
 

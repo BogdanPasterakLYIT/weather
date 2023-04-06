@@ -1,1 +1,41 @@
-<p>stats works!</p>
+<div class="container">
+  <h1>Statistics</h1>
+  <hr />
+  <h2>National Statistics</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Weather Measure</th>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Avg</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of nat">
+        <td>{{ transformName(d.name || "") }}</td>
+        <td>{{ d.min | number }}</td>
+        <td>{{ d.max }}</td>
+        <td>{{ d.avg }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Site Statistics</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Weather Measure</th>
+        <th>Site</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of ss">
+        <td>{{ d.name }}</td>
+        <td>{{ d.site_name }}</td>
+        <td>{{ d.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
