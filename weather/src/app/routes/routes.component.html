@@ -9,23 +9,25 @@
   <tbody>
     <tr>
       <td>
-        <a href="http://localhost:3000/sites">http://localhost:3000/sites</a>
+        <p (click)="getSites()">http://localhost:3000/sites</p>
       </td>
       <td>GET sites ordered by name</td>
     </tr>
     <tr>
       <td>
-        <a href="http://localhost:3000/today/2023-03-01"
-          >http://localhost:3000/today/2023-03-01</a
-        >
+        <p (click)="getToday()">http://localhost:3000/today/2023-03-01</p>
       </td>
       <td>GET data for today (2023-03-01)</td>
     </tr>
     <tr>
       <td>
-        <a href="http://localhost:3000/sitedata/M1 Dublin Airport"
-          >http://localhost:3000/sitedata/M1%20Dublin%20Airport</a
-        >
+        <!-- without service -->
+        <!-- <a href="http://localhost:3000/sitedata/M1 Dublin Airport">
+          http://localhost:3000/sitedata/M1%20Dublin%20Airport</a> -->
+        <!-- with service -->
+        <p (click)="getSiteData()">
+          http://localhost:3000/sitedata/M1%20Dublin%20Airport
+        </p>
       </td>
       <td>GET data for a site order by date and time</td>
     </tr>

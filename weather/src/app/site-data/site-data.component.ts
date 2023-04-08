@@ -39,7 +39,7 @@ export class SiteDataComponent {
   }
 
   rangeChange() {
-    console.log('range', this.range);
+    // console.log('range', this.range);
     if (this.radio === 'air_temperature') {
       this.sites = this.data.filter((s) => s.air_temperature <= this.range);
     } else {

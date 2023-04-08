@@ -49,9 +49,9 @@
           {{ site.site_name }}
         </a>
       </td>
-      <td>{{ site.air_temperature }}</td>
-      <td>{{ site.road_surface_temperature }}</td>
-      <td>{{ site.wind_speed }}</td>
+      <td>{{ site.air_temperature || "-" }}</td>
+      <td>{{ site.road_surface_temperature || "-" }}</td>
+      <td>{{ site.wind_speed || "-" }}</td>
     </tr>
   </tbody>
 </table>
