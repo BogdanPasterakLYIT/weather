@@ -10,8 +10,8 @@ import * as d3 from 'd3';
   styleUrls: ['./daily-stats.component.css'],
 })
 export class DailyStatsComponent {
-  name: string = 'N15 Kilygordon';
-  date: string = '2023-03-20';
+  name: string = '';
+  date: string = '';
   options: string[] = [];
   data: TodaySite[] = [];
   min: number | undefined;
