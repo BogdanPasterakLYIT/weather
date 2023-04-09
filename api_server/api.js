@@ -9,7 +9,7 @@ const db = mysql.createPool({
   user: "root",
   password: "",
   database: "weather2023",
-  port: 3307, // standard is 3306
+  port: 3306, // standard is 3306
 });
 
 app.use(cors());
