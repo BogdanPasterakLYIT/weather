@@ -19,6 +19,7 @@ export class DailyStatsComponent {
   avg: number | undefined;
   private sizes = { w: 1140, h: 500 };
   private svg: any;
+  private svg2: any;
 
   constructor(service: SitesService, private serviceTS: TodaySiteService) {
     // options for select (names of site)
@@ -36,7 +37,9 @@ export class DailyStatsComponent {
         .subscribe((res) => {
           this.data = res;
           this.calk();
-          this.createSvgBar(res);
+          if (res.length) this.createSvgBar(res);
+          else d3.selectAll('svg').remove();
+
           // console.log(res);
         });
     }
@@ -44,7 +47,9 @@ export class DailyStatsComponent {
 
   calk() {
     this.max = Math.max(...this.data.map((e) => e.air_temperature));
+    if (!Number.isFinite(this.max)) this.max = undefined;
     this.min = Math.min(...this.data.map((e) => e.air_temperature));
+    if (!Number.isFinite(this.min)) this.min = undefined;
     let sum = 0;
     let count = 0;
     this.data.map((e) => {
@@ -80,13 +85,40 @@ export class DailyStatsComponent {
     );
 
     // Create the X-axis band scale
-    const x = d3.scaleLinear().domain([0, data.length]).range([0, sizes.w]);
+    const x = d3
+      .scaleLinear()
+      .domain([0, data.length + 1])
+      .range([0, sizes.w]);
 
     // Create the Y-axis band scale
     const y = d3
       .scaleLinear()
       .domain([0, yMax])
       .range([sizes.h - 20, 0]);
+
+    // Draw the Y-axis on the DOM
+    this.svg.append('g').call(d3.axisLeft(y));
+
+    // text on x axis
+    this.svg
+      .append('text')
+      .attr('x', 5)
+      .attr('y', y(this.avg || 0) - 7)
+      .text('Mean');
+
+    // bars
+    this.svg
+      .selectAll('mybar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d: TodaySite) => x(data.indexOf(d)) + 4)
+      .attr('y', (d: TodaySite) => y(d.wind_speed))
+      .attr('width', x(1) - 6)
+      .attr('height', (d: TodaySite) => sizes.h - y(d.wind_speed) - 20)
+      .attr('fill', '#049')
+      .attr('stroke-width', 1)
+      .attr('stroke', '#000');
 
     // Draw the X-axis on the avrage level
     this.svg
@@ -95,15 +127,57 @@ export class DailyStatsComponent {
       .style('stroke-dasharray', '5 5')
       .call(d3.axisBottom(x).tickValues([]));
 
+    // line chart
+
+    // Sizes depend off windows size
+    this.svg2 = d3
+      .select('div#bar2')
+      .append('svg')
+      .attr('width', sizes.w - 10)
+      .attr('height', sizes.h + 10)
+      .append('g')
+      .attr('transform', 'translate( 30, 10)');
+
     // Draw the Y-axis on the DOM
-    this.svg.append('g').call(d3.axisLeft(y));
+    this.svg2.append('g').call(d3.axisLeft(y));
 
-    this.svg
-      .append('text')
-      .attr('x', 5)
-      .attr('y', y(this.avg || 0) - 7)
-      .text('Mean');
+    // Create the X-axis band scale
+    const x2 = d3
+      .scaleLinear()
+      .domain([0.5, data.length + 1.5])
+      .range([0, sizes.w]);
 
-    console.log(data.length);
+    // points
+    this.svg2
+      .selectAll('point')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d: TodaySite) => x2(data.indexOf(d) + 1))
+      .attr('cy', (d: TodaySite) => y(d.wind_speed))
+      .attr('r', 5)
+      .attr('fill', '#049')
+      .attr('stroke-width', 1)
+      .attr('stroke', '#000');
+
+    this.svg2
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1.5)
+      .attr(
+        'd',
+        d3
+          .line()
+          .x((d, i) => x2(i + 1))
+          .y((d: any) => y(d.wind_speed))
+      );
+
+    // Draw the X-axis on the avrage level
+    this.svg2
+      .append('g')
+      .attr('transform', 'translate(0,' + y(0) + ')')
+      .call(d3.axisBottom(x2));
   }
 }

@@ -49,7 +49,11 @@
   </table>
   <div *ngIf="data.length">
     <h2>Wind Speed Column Chart</h2>
-    <div id="bar" #bar></div>
   </div>
   <div id="bar" #bar></div>
+  <div *ngIf="data.length">
+    <br />
+    <h2>Wind Speed Line Chart</h2>
+  </div>
+  <div id="bar2" #bar2></div>
 </div>
