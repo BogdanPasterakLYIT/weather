@@ -37,7 +37,7 @@ export class TodaySiteComponent implements AfterViewInit {
 
     service.getTodaySite(this.site, this.day).subscribe((res) => {
       this.siteData = res;
-      if (this.svg) this.drawBars(this.data);
+      if (this.svg) this.drawBars();
     });
 
     service.getTodaySiteAvrage(this.site, this.day).subscribe((res) => {
@@ -50,7 +50,7 @@ export class TodaySiteComponent implements AfterViewInit {
     this.sizes.h = this.bar?.nativeElement.offsetWidth / 2;
 
     this.createSvg();
-    if (this.siteData.length) this.drawBars(this.data);
+    if (this.siteData.length) this.drawBars();
   }
 
   ngOnInit(): void {}
@@ -66,7 +66,7 @@ export class TodaySiteComponent implements AfterViewInit {
       .attr('transform', 'translate( 40, 20)');
   }
 
-  private drawBars(data: any[]): void {
+  private drawBars(): void {
     //min and max y
     const yMin = Math.floor(
       this.siteData.reduce((prev, curr) =>
