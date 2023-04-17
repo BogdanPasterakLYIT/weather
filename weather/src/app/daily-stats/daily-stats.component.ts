@@ -10,8 +10,8 @@ import * as d3 from 'd3';
   styleUrls: ['./daily-stats.component.css'],
 })
 export class DailyStatsComponent {
-  name: string = '';
-  date: string = '';
+  name: string = 'N15 Kilygordon';
+  date: string = '2023-03-01';
   options: string[] = [];
   data: TodaySite[] = [];
   min: number | undefined;
@@ -116,9 +116,19 @@ export class DailyStatsComponent {
       .attr('y', (d: TodaySite) => y(d.wind_speed))
       .attr('width', x(1) - 6)
       .attr('height', (d: TodaySite) => sizes.h - y(d.wind_speed) - 20)
-      .attr('fill', '#049')
+      .attr('fill', '#06B')
       .attr('stroke-width', 1)
       .attr('stroke', '#000');
+
+    // Add value on bar
+    this.svg
+      .selectAll('value')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('x', (d: TodaySite) => x(data.indexOf(d)) + 25)
+      .attr('y', sizes.h - 30)
+      .text((d: TodaySite) => d.wind_speed.toFixed(1));
 
     // Draw the X-axis on the avrage level
     this.svg
