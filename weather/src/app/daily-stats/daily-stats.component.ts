@@ -99,13 +99,6 @@ export class DailyStatsComponent {
     // Draw the Y-axis on the DOM
     this.svg.append('g').call(d3.axisLeft(y));
 
-    // text on x axis
-    this.svg
-      .append('text')
-      .attr('x', 5)
-      .attr('y', y(this.avg || 0) - 7)
-      .text('Mean');
-
     // bars
     this.svg
       .selectAll('mybar')
@@ -129,6 +122,13 @@ export class DailyStatsComponent {
       .attr('x', (d: TodaySite) => x(data.indexOf(d)) + 25)
       .attr('y', sizes.h - 30)
       .text((d: TodaySite) => d.wind_speed.toFixed(1));
+
+    // text on x axis
+    this.svg
+      .append('text')
+      .attr('x', 5)
+      .attr('y', y(this.avg || 0) - 7)
+      .text('Mean');
 
     // Draw the X-axis on the avrage level
     this.svg
